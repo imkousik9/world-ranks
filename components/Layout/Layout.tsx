@@ -11,31 +11,24 @@ interface Props {
 }
 
 export default function Layout({ children, title }: Props) {
-  const [theme, setTheme] = React.useState<string>('light');
-  // const [theme, setTheme] = React.useState<string>(
-  //   () => localStorage.getItem('theme') || 'light'
-  // );
+  const [theme, setTheme] = React.useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme');
+    }
+  });
 
   React.useEffect(() => {
-    document.documentElement.setAttribute(
-      'data-theme',
-      localStorage.getItem('theme') || 'light'
-    );
+    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
   const switchTheme = () => {
-    if (theme === 'light') {
-      saveTheme('dark');
+    if (theme !== 'dark') {
+      setTheme('dark');
     } else {
-      saveTheme('light');
+      setTheme('light');
     }
   };
-
-  function saveTheme(theme: string) {
-    setTheme(theme);
-    localStorage.setItem('theme', theme);
-    document.documentElement.setAttribute('data-theme', theme);
-  }
 
   return (
     <div className={styles.container}>
@@ -81,8 +74,6 @@ export default function Layout({ children, title }: Props) {
       </header>
 
       <main className={styles.main}>{children}</main>
-
-      <footer className={styles.footer}>Kousik Manna</footer>
     </div>
   );
 }
