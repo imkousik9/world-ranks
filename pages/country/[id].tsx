@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import NextLink from 'next/link';
 import type {
   GetStaticPaths,
   InferGetStaticPropsType,
@@ -127,17 +128,18 @@ export default function Country({
               </div>
 
               <div className={styles.details_panel_borders_container}>
-                {borders.map(({ flag, name }) => (
-                  <div
-                    key={name}
-                    className={styles.details_panel_borders_country}
-                  >
-                    <Image src={flag} alt={name} width={250} height={150} />
+                {borders.map(({ flag, name, alpha3Code }) => (
+                  <NextLink href={`/country/${alpha3Code}`} key={name}>
+                    <a>
+                      <div className={styles.details_panel_borders_country}>
+                        <Image src={flag} alt={name} width={250} height={150} />
 
-                    <div className={styles.details_panel_borders_name}>
-                      {name}
-                    </div>
-                  </div>
+                        <div className={styles.details_panel_borders_name}>
+                          {name}
+                        </div>
+                      </div>
+                    </a>
+                  </NextLink>
                 ))}
               </div>
             </div>

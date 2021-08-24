@@ -1,7 +1,7 @@
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import styles from './CountriesTable.module.css';
 
-function SortArrow({ direction }: any) {
+function SortArrow({ direction }) {
   if (!direction) {
     return <></>;
   }
