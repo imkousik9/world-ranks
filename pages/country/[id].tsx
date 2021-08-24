@@ -13,6 +13,30 @@ import { getCountry } from '../../lib/getCountry';
 import styles from './Country.module.css';
 import { ICountries } from '../../lib/type';
 
+export const getStaticPaths: GetStaticPaths = async () => {
+  const countries = await getCountries();
+
+  const paths = countries.map((country) => ({
+    params: { id: country.alpha3Code }
+  }));
+
+  return {
+    paths,
+    fallback: false
+  };
+};
+
+export async function getStaticProps(ctx: GetStaticPropsContext) {
+  const country = await getCountry(ctx.params?.id);
+
+  return {
+    props: {
+      country
+    },
+    revalidate: 200
+  };
+}
+
 export default function Country({
   country
 }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -122,27 +146,4 @@ export default function Country({
       </div>
     </Layout>
   );
-}
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const countries = await getCountries();
-
-  const paths = countries.map((country) => ({
-    params: { id: country.alpha3Code }
-  }));
-
-  return {
-    paths,
-    fallback: false
-  };
-};
-
-export async function getStaticProps(ctx: GetStaticPropsContext) {
-  const country = await getCountry(ctx.params?.id);
-
-  return {
-    props: {
-      country
-    }
-  };
 }

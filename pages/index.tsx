@@ -12,7 +12,8 @@ export async function getStaticProps() {
   return {
     props: {
       countries
-    }
+    },
+    revalidate: 200
   };
 }
 
