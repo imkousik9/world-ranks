@@ -27,8 +27,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export async function getStaticProps(ctx: GetStaticPropsContext) {
-  const country = await getCountry(ctx.params?.id);
+export async function getStaticProps({ params }: GetStaticPropsContext) {
+  const country = await getCountry(params?.id);
 
   return {
     props: {
@@ -43,15 +43,15 @@ export default function Country({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [borders, setBorders] = useState<ICountries[]>([]);
 
-  const getBorders = async () => {
-    const borders = await Promise.all(
-      country.borders.map((border) => getCountry(border))
-    );
-
-    setBorders(borders);
-  };
-
   useEffect(() => {
+    const getBorders = async () => {
+      const borders = await Promise.all(
+        country.borders.map((border) => getCountry(border))
+      );
+
+      setBorders(borders);
+    };
+
     getBorders();
   }, []);
 

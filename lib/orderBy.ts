@@ -1,4 +1,4 @@
-import { ICountries } from '../lib/type';
+import { ICountries } from './type';
 
 export const orderBy = (
   countries: ICountries[],

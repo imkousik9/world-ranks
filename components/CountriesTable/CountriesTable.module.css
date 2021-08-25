@@ -80,6 +80,8 @@
 }
 
 .flag {
+  display: flex;
+  text-align: center;
   flex: 1;
   margin-right: 16px;
 }

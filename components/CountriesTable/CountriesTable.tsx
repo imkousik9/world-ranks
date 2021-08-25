@@ -4,7 +4,7 @@ import SortArrow from './SortArrow';
 import styles from './CountriesTable.module.css';
 
 import { ICountries } from '../../lib/type';
-import { orderBy } from '../../utils/orderBy';
+import { orderBy } from '../../lib/orderBy';
 import Image from 'next/image';
 
 type CountryListProps = {
@@ -17,7 +17,7 @@ export default function CountriesTable({ countries }: CountryListProps) {
 
   const orderedCountries = orderBy(countries, value, direction);
 
-  const switchDirection = () => {
+  const setValueAndDirection = (value: string) => {
     if (!direction) {
       setDirection('desc');
     } else if (direction === 'desc') {
@@ -25,10 +25,7 @@ export default function CountriesTable({ countries }: CountryListProps) {
     } else {
       setDirection(null);
     }
-  };
 
-  const setValueAndDirection = (value: string) => {
-    switchDirection();
     setValue(value);
   };
 
@@ -78,24 +75,22 @@ export default function CountriesTable({ countries }: CountryListProps) {
 
       {orderedCountries.map((country) => (
         <NextLink href={`/country/${country.alpha3Code}`} key={country.name}>
-          <a>
-            <div className={styles.row}>
-              <div className={styles.flag}>
-                <Image
-                  src={country.flag}
-                  alt={country.name}
-                  width={200}
-                  height={130}
-                />
-              </div>
-              <div className={styles.name}>{country.name}</div>
-
-              <div className={styles.population}>{country.population}</div>
-
-              <div className={styles.area}>{country.area || 0}</div>
-
-              <div className={styles.gini}>{country.gini || 0} %</div>
+          <a className={styles.row}>
+            <div className={styles.flag}>
+              <Image
+                src={country.flag}
+                alt={country.name}
+                width={200}
+                height={130}
+              />
             </div>
+            <div className={styles.name}>{country.name}</div>
+
+            <div className={styles.population}>{country.population}</div>
+
+            <div className={styles.area}>{country.area || 0}</div>
+
+            <div className={styles.gini}>{country.gini || 0} %</div>
           </a>
         </NextLink>
       ))}
