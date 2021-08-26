@@ -19,8 +19,8 @@ export default function Layout({ children, title }: Props) {
   });
 
   React.useEffect(() => {
-    localStorage.setItem('theme', theme);
-    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme ?? 'light');
+    document.documentElement.setAttribute('data-theme', theme ?? 'light');
   }, [theme]);
 
   const switchTheme = () => {
