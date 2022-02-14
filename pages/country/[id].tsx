@@ -52,7 +52,9 @@ export default function Country({
       setBorders(borders);
     };
 
-    getBorders();
+    if (country.borders) {
+      getBorders();
+    }
   }, []);
 
   return (
@@ -79,7 +81,9 @@ export default function Country({
               </div>
 
               <div className={styles.overview_area}>
-                <div className={styles.overview_value}>{country.area}</div>
+                <div className={styles.overview_value}>
+                  {country.area || 'NA'}
+                </div>
                 <div className={styles.overview_label}>Area</div>
               </div>
             </div>
@@ -92,7 +96,7 @@ export default function Country({
             <div className={styles.details_panel_row}>
               <div className={styles.details_panel_label}>Capital</div>
               <div className={styles.details_panel_value}>
-                {country.capital}
+                {country.capital ? country.capital : 'NA'}
               </div>
             </div>
 
@@ -106,7 +110,9 @@ export default function Country({
             <div className={styles.details_panel_row}>
               <div className={styles.details_panel_label}>Currencies</div>
               <div className={styles.details_panel_value}>
-                {country.currencies.map(({ name }) => name).join(', ')}
+                {country.currencies
+                  ? country.currencies?.map(({ name }) => name).join(', ')
+                  : 'NA'}
               </div>
             </div>
 
@@ -119,16 +125,18 @@ export default function Country({
 
             <div className={styles.details_panel_row}>
               <div className={styles.details_panel_label}>Gini</div>
-              <div className={styles.details_panel_value}>{country.gini} %</div>
+              <div className={styles.details_panel_value}>
+                {country.gini ? `${country.gini} %` : 'NA'}
+              </div>
             </div>
 
             <div className={styles.details_panel_borders}>
               <div className={styles.details_panel_borders_label}>
-                Neighbouring Countries
+                Neighboring Countries
               </div>
 
               <div className={styles.details_panel_borders_container}>
-                {borders.map(({ flag, name, alpha3Code }) => (
+                {borders?.map(({ flag, name, alpha3Code }) => (
                   <NextLink href={`/country/${alpha3Code}`} key={name}>
                     <a>
                       <div className={styles.details_panel_borders_country}>

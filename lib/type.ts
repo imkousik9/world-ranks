@@ -11,19 +11,6 @@ interface Language {
   nativeName: string;
 }
 
-interface Translations {
-  de: string;
-  es: string;
-  fr: string;
-  ja: string;
-  it: string;
-  br: string;
-  pt: string;
-  nl: string;
-  hr: string;
-  fa: string;
-}
-
 interface RegionalBloc {
   acronym: string;
   name: string;
@@ -47,12 +34,12 @@ export interface ICountries {
   area?: number;
   gini?: number;
   timezones: string[];
-  borders: string[];
+  borders?: string[];
   nativeName: string;
   numericCode: string;
-  currencies: Currency[];
+  currencies?: Currency[];
   languages: Language[];
-  translations: Translations;
+  translations: any;
   flag: string;
   regionalBlocs: RegionalBloc[];
   cioc: string;

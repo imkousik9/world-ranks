@@ -88,9 +88,11 @@ export default function CountriesTable({ countries }: CountryListProps) {
 
             <div className={styles.population}>{country.population}</div>
 
-            <div className={styles.area}>{country.area || 0}</div>
+            <div className={styles.area}>{country.area || 'NA'}</div>
 
-            <div className={styles.gini}>{country.gini || 0} %</div>
+            <div className={styles.gini}>
+              {country.gini ? `${country.gini} %` : 'NA'}
+            </div>
           </a>
         </NextLink>
       ))}
