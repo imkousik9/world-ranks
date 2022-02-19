@@ -55,7 +55,7 @@ export default function Country({
     if (country.borders) {
       getBorders();
     }
-  }, []);
+  }, [country.borders]);
 
   return (
     <Layout title={country.name}>
